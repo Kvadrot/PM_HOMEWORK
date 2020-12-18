@@ -29,7 +29,7 @@ struct UserInfo {
 
 struct BettingSystem {
     var userList: [UserInfo] = []
-        
+    
     mutating func registration(userInfo: UserInfo) {
         if let user = userList.first(where: { $0.name == userInfo.name }) {
             print("you want to sign up as: \(userInfo.name), unfortunately this nickname already exists")
@@ -55,7 +55,7 @@ struct BettingSystem {
         }  else {
             print("your nickname is \(userInfo.name) unfortunately you are baned and you can`t logout")
         }
-
+        
     }
     var dictBet: [String : [String]] = [:]
     
@@ -65,13 +65,21 @@ struct BettingSystem {
         }
     }
     mutating func bet(userinfo: UserInfo, beta: [String]) {
-        if var index = userList.firstIndex(where: { $0.status == .online }) {
+        if var index = userList.firstIndex(where: { $0.name == userinfo.name  && $0.status == .online }) {
+            
             dictBet.updateValue(beta, forKey: userinfo.name)
         } else {
-                print("something went wrong")
+            print("something went wrong")
         }
     }
-    func listForAdmin(userList: UserInfo){
-        print(userList.name)
+    mutating func banUser(banTarget: UserInfo) {
+        if var index = userList.firstIndex(where: { $0.name == banTarget.name  && $0.status != .baned }) {
+            userList[index].status = .baned
+        } else {
+            print("something went wrong")
+        }
+    }
+    func listForAdmin(){
+        print(userList)
     }
 }
