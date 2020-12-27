@@ -43,11 +43,15 @@ class ViewController: UIViewController {
         redCircle.backgroundColor = .red
         redCircle.layer.cornerRadius = 20
         transparentView.addSubview(redCircle)
-        animate()
+        let button = UIButton(frame: CGRect(x: (view.frame.size.width - 50)/2, y: (view.frame.size.height-150), width: 50, height: 50))
+        button.backgroundColor = .red
+        button.setTitleColor(.white, for: .normal)
+        button.setTitle("Start", for: .normal)
+        button.addTarget(self, action: #selector(animate), for: .touchUpInside)
+        view.addSubview(button)
     }
-    func animate() {
+    @objc func animate() {
         UIView.animate(withDuration: 3, animations: {
-            //self.transparentView.transform = CGAffineTransform(rotationAngle: 3)
             self.transparentView.transform = CGAffineTransform(rotationAngle: .pi)
         }, completion: { done in
             if done {

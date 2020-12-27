@@ -19,15 +19,21 @@ class ViewController: UIViewController {
         ))
         myView.backgroundColor = .blue
         view.addSubview(myView)
-        animate(myView)
+
+        let button = UIButton(frame: CGRect(x: (view.frame.size.width - 50)/2, y: (view.frame.size.height-150), width: 50, height: 50))
+        button.backgroundColor = .red
+        button.setTitleColor(.white, for: .normal)
+        button.setTitle("Start", for: .normal)
+        button.addTarget(self, action: #selector(animate), for: .touchUpInside)
+        view.addSubview(button)
     }
-    func animate(_ myView: UIView) {
+    @objc func animate(myView _: UIView) {
         UIView.animate (withDuration: 4, animations: {
-            myView.layer.cornerRadius = 61
+            self.myView.layer.cornerRadius = 61
         }, completion: { done in
             if done {
                 UIView.animate(withDuration: 4, animations: {
-                    myView.layer.cornerRadius = 0
+                    self.myView.layer.cornerRadius = 0
                 })
             }
         })
